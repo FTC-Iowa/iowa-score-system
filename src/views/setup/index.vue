@@ -89,6 +89,11 @@
                       <p>{{post.body}}</p>
                     </li>
                   </ul>
+                  <ul v-if="errors && errors.length">
+                    <li v-for="error of errors">
+                      {{error.message}}
+                    </li>
+                  </ul>
                 </v-flex>
               </v-layout>
               <v-card-actions>
