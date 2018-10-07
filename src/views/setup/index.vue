@@ -85,7 +85,7 @@
                 <v-flex xs8>
                   <ul v-if="posts && posts.length">
                     <li v-for="post of posts">
-                      <p><strong>{{post.id}}</strong></p>
+                      <p><strong>{{post.name}}</strong></p>
                       <p>{{post.teams}}</p>
                     </li>
                   </ul>
@@ -141,7 +141,7 @@ export default {
   created() {
     axios.get('http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren')
     .then(response => {
-      this.posts = response.data
+      this.posts.push(response.data)
     })
     .catch(e => {
       this.errors.push(e)
