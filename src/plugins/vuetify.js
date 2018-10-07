@@ -12,7 +12,12 @@ import {
   transitions,
   VDataTable,
   VStepper,
-  VCard
+  VCard,
+  VDivider,
+  VSelect,
+  VTextField,
+  VDatePicker,
+  VProgressCircular
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
 import colors from "vuetify/es5/util/colors";
@@ -30,7 +35,12 @@ Vue.use(Vuetify, {
     transitions,
     VDataTable,
     VStepper,
-    VCard
+    VCard,
+    VDivider,
+    VSelect,
+    VTextField,
+    VDatePicker,
+    VProgressCircular
   },
   theme: {
     primary: "#f57e25",

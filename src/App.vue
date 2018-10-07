@@ -57,20 +57,21 @@ export default {
         name: 'setup'
       },{
         icon: '2',
+        title: 'Team List',
+        name: 'teams'
+      },{
+        icon: '3',
         title: 'Generate Matchlist',
         name: 'matchlist'
       },{
-        icon: '3',
+        icon: '4',
         title: 'Enter Scores',
         name: 'scores'
       },{
-        icon: '4',
+        icon: '5',
         title: 'Save Results',
         name: 'save'
       }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
       title: 'FTC Iowa Score System'
     }
   }

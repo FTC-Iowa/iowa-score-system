@@ -14,6 +14,11 @@ export default new Router({
       component: () => import("./views/setup")
     },
     {
+      path: "/teams",
+      name: "teams",
+      component: () => import("./views/teams")
+    },
+    {
       path: "/matchlist",
       name: "matchlist",
       component: () => import("./views/matchlist")
