@@ -10,8 +10,23 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "setup",
+      component: () => import("./views/setup")
+    },
+    {
+      path: "/matchlist",
+      name: "matchlist",
+      component: () => import("./views/matchlist")
+    },
+    {
+      path: "/scores",
+      name: "scores",
+      component: () => import("./views/scores")
+    },
+    {
+      path: "/save",
+      name: "save",
+      component: () => import("./views/save")
     },
     {
       path: "/about",

@@ -9,7 +9,10 @@ import {
   VIcon,
   VGrid,
   VToolbar,
-  transitions
+  transitions,
+  VDataTable,
+  VStepper,
+  VCard
 } from 'vuetify'
 import 'vuetify/src/stylus/app.styl'
 import colors from "vuetify/es5/util/colors";
@@ -24,7 +27,10 @@ Vue.use(Vuetify, {
     VIcon,
     VGrid,
     VToolbar,
-    transitions
+    transitions,
+    VDataTable,
+    VStepper,
+    VCard
   },
   theme: {
     primary: "#f57e25",

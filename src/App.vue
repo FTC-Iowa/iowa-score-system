@@ -2,9 +2,8 @@
   <v-app>
     <v-navigation-drawer
       persistent
-      :mini-variant="miniVariant"
+      :mini-variant="false"
       :clipped="true"
-      v-model="drawer"
       enable-resize-watcher
       fixed
       app
@@ -40,7 +39,7 @@
     <v-content>
       <router-view/>
     </v-content>
-    <v-footer :fixed="fixed" app>
+    <v-footer :fixed="true" app>
       <span>&copy; 2018 FTC Iowa, Jeramie Vens, Emma Onstad, Jason Cheng</span>
     </v-footer>
   </v-app>
@@ -54,16 +53,20 @@ export default {
     return {
       items: [{
         icon: '1',
-        title: 'Setup Event'
+        title: 'Setup Event',
+        name: 'setup'
       },{
         icon: '2',
-        title: 'Generate Matchlist'
+        title: 'Generate Matchlist',
+        name: 'matchlist'
       },{
         icon: '3',
-        title: 'Enter Scores'
+        title: 'Enter Scores',
+        name: 'scores'
       },{
         icon: '4',
-        title: 'Save Results'
+        title: 'Save Results',
+        name: 'save'
       }],
       miniVariant: false,
       right: true,
