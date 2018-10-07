@@ -93,8 +93,24 @@ export default {
       'League Meet'
     ],
     leagueList: [
-      'Alden',
-      'Clark'
+      'Aldren League',
+      'Armstrong League',
+      'Burnell League',
+      'Clark League',
+      'Faber League',
+      'Galileo League',
+      'Glenn League',
+      'Hammel League',
+      'Hubble League',
+      'Johnson League',
+      'Lovell League',
+      'Porco League',
+      'Roman League',
+      'Rubin League',
+      'Sagan League',
+      'Van Allen League',
+      'Vaughan League',
+      'Whitson League'
     ],
     eventData: {
       type: 'League Meet',
