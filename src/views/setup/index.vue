@@ -121,12 +121,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import axios from 'axios';
-import shortid from 'shortid';
-=======
 import axios from "axios";
->>>>>>> 141751e9606a5940f9bfa528c832975480039a1d
 
 export default {
   name: "SetupView",
