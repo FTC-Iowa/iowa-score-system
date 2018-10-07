@@ -17,7 +17,8 @@ import {
   VSelect,
   VTextField,
   VDatePicker,
-  VProgressCircular
+  VProgressCircular,
+  VCheckbox,
 } from "vuetify";
 import "vuetify/src/stylus/app.styl";
 import colors from "vuetify/es5/util/colors";
@@ -40,7 +41,8 @@ Vue.use(Vuetify, {
     VSelect,
     VTextField,
     VDatePicker,
-    VProgressCircular
+    VProgressCircular,
+    VCheckbox,
   },
   theme: {
     primary: "#f57e25",

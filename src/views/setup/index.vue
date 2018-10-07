@@ -86,7 +86,7 @@
                   <ul v-if="posts && posts.length">
                     <li v-for="post of posts">
                       <p><strong>{{post.name}}</strong></p>
-                      <p>{{post.teams}}</p>
+                      <p>{{post.number}}</p>
                     </li>
                   </ul>
                   <ul v-if="errors && errors.length">
@@ -94,6 +94,11 @@
                       {{error.message}}
                     </li>
                   </ul>
+                  <v-btn
+                  color="primary"
+                >
+                  Upload Doccument
+                </v-btn>
                 </v-flex>
               </v-layout>
               <v-card-actions>
@@ -116,8 +121,12 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import axios from 'axios';
 import shortid from 'shortid';
+=======
+import axios from "axios";
+>>>>>>> 141751e9606a5940f9bfa528c832975480039a1d
 
 export default {
   name: "SetupView",
@@ -160,15 +169,18 @@ export default {
   },
 
   created() {
-    axios.get('http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren')
-    .then(response => {
-      this.posts.push(response.data)
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+    axios
+      .get(
+        "http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren"
+      )
+      .then(response => {
+        this.posts.push(response.data);
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
   }
-}
+};
 </script>
 
 <style>
