@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "SetupView",
@@ -153,15 +153,18 @@ export default {
   }),
 
   created() {
-    axios.get('http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren')
-    .then(response => {
-      this.posts.push(response.data)
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+    axios
+      .get(
+        "http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren"
+      )
+      .then(response => {
+        this.posts.push(response.data);
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
   }
-}
+};
 </script>
 
 <style>

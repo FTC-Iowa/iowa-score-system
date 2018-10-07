@@ -8,10 +8,10 @@
 export default {
   methods: {
     saveEvent() {
-      console.log('save...')
+      console.log("save...");
     }
   }
-}
+};
 </script>
 
 <style>
