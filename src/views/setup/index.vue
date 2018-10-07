@@ -78,6 +78,32 @@
               </v-card-actions>
             </v-card>
           </v-stepper-content>
+
+          <v-stepper-content step="3">
+            <v-card>
+              <v-layout wrap justify-space-around>
+                <v-flex xs8>
+                  <ul v-if="posts && posts.length">
+                    <li v-for="post of posts">
+                      <p><strong>{{post.title}}</strong></p>
+                      <p>{{post.body}}</p>
+                    </li>
+                  </ul>
+                </v-flex>
+              </v-layout>
+              <v-card-actions>
+                <v-spacer/>
+                <v-btn flat>Cancel</v-btn>
+                <v-btn
+                  color="primary"
+                  @click="step++"
+                >
+                  Continue
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-stepper-content>
+
         </v-stepper-items>
       </v-stepper>
     </v-card-text>
@@ -85,6 +111,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "SetupView",
   data: () => ({
@@ -110,13 +138,25 @@ export default {
       "Vaughan League",
       "Whitson League"
     ],
+    posts: [],
+    errors: [],
     eventData: {
       type: "League Meet",
       location: "",
       date: null
     }
-  })
-};
+  }),
+
+  created() {
+    axios.get('https://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren')
+    .then(response => {
+      this.posts = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+  }
+}
 </script>
 
 <style>
