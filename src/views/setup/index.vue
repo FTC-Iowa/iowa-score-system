@@ -117,6 +117,7 @@
 
 <script>
 import axios from 'axios';
+import shortid from 'shortid';
 
 export default {
   name: "SetupView",
@@ -151,6 +152,12 @@ export default {
       date: null
     }
   }),
+  methods: {
+    saveEvent() {
+      this.evenData.id = shortid.generate();
+      this.$store.commit("SET_EVENT", this.eventData)
+    }
+  },
 
   created() {
     axios.get('http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren')
