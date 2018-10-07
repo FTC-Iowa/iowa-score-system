@@ -23,24 +23,27 @@ export default {
       {
         text: "here",
         value: "here"
-      },{
+      },
+      {
         text: "number",
         value: "number"
-      },{
+      },
+      {
         text: "name",
         value: "name"
-      },{
+      },
+      {
         text: "organization",
         value: "organization"
-      },{
+      },
+      {
         text: "edit"
       }
-    ], 
+    ],
     items: []
   })
-}
+};
 </script>
 
 <style>
-
 </style>

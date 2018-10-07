@@ -122,18 +122,32 @@ export default {
   name: "SetupView",
   data: () => ({
     step: 1,
-    eventTypes: [
-      'League Meet'
-    ],
+    eventTypes: ["League Meet"],
     leagueList: [
-      'Alden',
-      'Clark'
+      "Aldren League",
+      "Armstrong League",
+      "Burnell League",
+      "Clark League",
+      "Faber League",
+      "Galileo League",
+      "Glenn League",
+      "Hammel League",
+      "Hubble League",
+      "Johnson League",
+      "Lovell League",
+      "Porco League",
+      "Roman League",
+      "Rubin League",
+      "Sagan League",
+      "Van Allen League",
+      "Vaughan League",
+      "Whitson League"
     ],
     posts: [],
     errors: [],
     eventData: {
-      type: 'League Meet',
-      location: '',
+      type: "League Meet",
+      location: "",
       date: null
     }
   }),
@@ -151,5 +165,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from "vue";
 import {
   Vuetify,
   VApp,
@@ -18,8 +18,8 @@ import {
   VTextField,
   VDatePicker,
   VProgressCircular
-} from 'vuetify'
-import 'vuetify/src/stylus/app.styl'
+} from "vuetify";
+import "vuetify/src/stylus/app.styl";
 import colors from "vuetify/es5/util/colors";
 
 Vue.use(Vuetify, {
@@ -51,5 +51,5 @@ Vue.use(Vuetify, {
     info: colors.blue.base,
     success: colors.green.base
   },
-  iconfont: 'md',
-})
+  iconfont: "md"
+});

@@ -4,6 +4,7 @@
       persistent
       :mini-variant="false"
       :clipped="true"
+      width="250"
       enable-resize-watcher
       fixed
       app
@@ -46,34 +47,39 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  data () {
+  name: "App",
+  data() {
     return {
-      items: [{
-        icon: '1',
-        title: 'Setup Event',
-        name: 'setup'
-      },{
-        icon: '2',
-        title: 'Team List',
-        name: 'teams'
-      },{
-        icon: '3',
-        title: 'Generate Matchlist',
-        name: 'matchlist'
-      },{
-        icon: '4',
-        title: 'Enter Scores',
-        name: 'scores'
-      },{
-        icon: '5',
-        title: 'Save Results',
-        name: 'save'
-      }],
-      title: 'FTC Iowa Score System'
-    }
+      items: [
+        {
+          icon: "1",
+          title: "Setup Event",
+          name: "setup"
+        },
+        {
+          icon: "2",
+          title: "Team List",
+          name: "teams"
+        },
+        {
+          icon: "3",
+          title: "Generate Matchlist",
+          name: "matchlist"
+        },
+        {
+          icon: "4",
+          title: "Enter Scores",
+          name: "scores"
+        },
+        {
+          icon: "5",
+          title: "Save Results",
+          name: "save"
+        }
+      ],
+      title: "FTC Iowa Score System"
+    };
   }
-}
+};
 </script>

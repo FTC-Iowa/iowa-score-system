@@ -53,7 +53,8 @@ export default {
         red2: 2222,
         blue1: 3333,
         blue2: 4444
-      },{
+      },
+      {
         number: 2,
         red1: 5555,
         red2: 6666,
@@ -65,16 +66,20 @@ export default {
       {
         text: "Number",
         value: "number"
-      },{
+      },
+      {
         text: "Red 1",
         value: "red1"
-      },{
+      },
+      {
         text: "Red 2",
         value: "red2"
-      },{
+      },
+      {
         text: "Blue 1",
         value: "blue1"
-      },{
+      },
+      {
         text: "Blue 2",
         value: "blue2"
       }
@@ -84,13 +89,11 @@ export default {
     generate() {
       this.loading = true;
 
-
       this.isGenerated = true;
     }
   }
-}
+};
 </script>
 
 <style>
-
 </style>
