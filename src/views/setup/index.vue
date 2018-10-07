@@ -86,7 +86,7 @@
                   <ul v-if="posts && posts.length">
                     <li v-for="post of posts">
                       <p><strong>{{post.name}}</strong></p>
-                      <p>{{post.teams}}</p>
+                      <p>{{post.number}}</p>
                     </li>
                   </ul>
                   <ul v-if="errors && errors.length">
@@ -94,6 +94,11 @@
                       {{error.message}}
                     </li>
                   </ul>
+                  <v-btn
+                  color="primary"
+                >
+                  Upload Doccument
+                </v-btn>
                 </v-flex>
               </v-layout>
               <v-card-actions>
