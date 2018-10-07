@@ -153,7 +153,7 @@ export default {
   }),
 
   created() {
-    axios.get('http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldren')
+    axios.get('http://us-central1-firstinspiresiowa2018.cloudfunctions.net/teamList?league=aldre')
     .then(response => {
       this.posts.push(response.data)
     })
