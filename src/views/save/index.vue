@@ -7,23 +7,23 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data: () => ({
     response: "response",
     data: {
-      id: 'eventid'
+      id: "eventid"
     }
   }),
   methods: {
     saveEvent() {
-      console.log('save...')
-      this.$store.dispatch("SAVE_EVENT")
+      console.log("save...");
+      this.$store.dispatch("SAVE_EVENT");
     },
     loadEvent() {
-      console.log('load...')
-      this.$store.dispatch("LOAD_EVENT")
+      console.log("load...");
+      this.$store.dispatch("LOAD_EVENT");
     }
   }
 };

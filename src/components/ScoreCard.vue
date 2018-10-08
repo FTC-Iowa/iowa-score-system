@@ -1,200 +1,240 @@
 <template>
     <v-card>
-      <v-layout justify-center>
-        <v-flex>
-          <v-toolbar :color="color" dark>
-            <v-toolbar-title>Color Alliance</v-toolbar-title>
-          </v-toolbar>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs3>
-        <div>Team 1: ##### </div>
-        </v-flex>
-        <v-flex xs3>
-      <v-checkbox
-          v-model="Team1CheckNoShow"
-          label="No Show"
-      ></v-checkbox>
-      </v-flex>
-        <v-flex xs3>
-          <v-checkbox
-            v-model="Team1CheckPresent"
-            label="Present"
-            value: true
-          ></v-checkbox>
-        </v-flex>
-        <v-flex xs3>
-          <v-checkbox
-            v-model="Team1CheckLatched"
-            label="Latched"
-          ></v-checkbox>
-        </v-flex>
-      </v-layout>
-      <v-divider/>
-        <v-layout>
-        <v-flex xs3>
-        <div>Team 2: #####</div>
-        </v-flex>
-        <v-flex xs3>
-      <v-checkbox v-model="Team2CheckNoShow" label="No Show"></v-checkbox>
-      </v-flex>
-        <v-flex xs3>
-        <v-checkbox v-model="Team2CheckPresent" label="Present"
-        ></v-checkbox>
-      </v-flex>
-        <v-flex xs3>
-        <v-checkbox v-model="Team2CheckLatched" label="Latched"></v-checkbox>
-      </v-flex>
-      </v-layout> 
+      <v-card-title>
+        <v-toolbar :color="color" dark>
+          <v-toolbar-title>{{color === 'red' ? "RED" : "BLUE"}} ALLIANCE</v-toolbar-title>
+          <v-spacer/>
+          SCORE: {{totalScore}}
+        </v-toolbar>
+      </v-card-title>
+      <v-card-text>
+        <v-layout row wrap align-center justify-space-around>
+          <v-flex xs4 class="text-xs-center">
+            Team {{data.teams[0].number}}:
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.teams[0].noshow" label="No Show"/>
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.score.auto.latched[0]" label="Latched"/>
+          </v-flex>
+          <v-flex xs4 class="text-xs-center">
+            Team {{data.teams[1].number}}:
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.teams[1].noshow" label="No Show"/>
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.score.auto.latched[1]" label="Latched"/>
+          </v-flex>
 
-      <v-divider/>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <div> Autonomous </div>
-        </v-flex>
-        <v-flex xs6>
-          <v-checkbox v-model="Robot1Landed" label="Robot 1 Landed"></v-checkbox>
-        </v-flex>
-        
-        <v-flex xs6>
-          <v-checkbox v-model="Robot2Landed" label="Robot 2 Landed"></v-checkbox>
-        </v-flex>
+          <v-flex class="grey text-xs-center" xs12>
+            AUTONOMOUS
+          </v-flex>
+          <v-flex xs3 class="text-xs-center">
+            Robot 1:
+          </v-flex>
+          <v-flex xs3>
+            <v-checkbox label="Landed" v-model="data.score.auto.landed[0]"/>
+          </v-flex>
+          <v-flex xs3>
+            <v-checkbox label="Claimed" v-model="data.score.auto.claimed[0]"/>
+          </v-flex>
+          <v-flex xs3>
+            <v-checkbox label="Parked" v-model="data.score.auto.parked[0]"/>
+          </v-flex>
+          <v-flex xs3 class="text-xs-center">
+            Robot 2:
+          </v-flex>
+          <v-flex xs3>
+            <v-checkbox label="Landed" v-model="data.score.auto.landed[1]"/>
+          </v-flex>
+          <v-flex xs3>
+            <v-checkbox label="Claimed" v-model="data.score.auto.claimed[1]"/>
+          </v-flex>
+          <v-flex xs3>
+            <v-checkbox label="Parked" v-model="data.score.auto.parked[1]"/>
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox label="Sample Field 1" v-model="data.score.auto.sample[0]"/>
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox label="Sample Field 2" v-model="data.score.auto.sample[1]"/>
+          </v-flex>
 
-        <v-flex xs6>
-          <v-checkbox v-model="Robot1Claimed" label="Robot 1 Claimed"></v-checkbox>
-        </v-flex>
+          <v-flex class="grey text-xs-center" xs12>
+            DRIVER-CONTROLLED
+          </v-flex>
+          <v-flex xs4 class="text-xs-center">
+            Gold Cargo Hold
+            <number-input v-model="data.score.tele.leftCargoHold" center controls/>
+          </v-flex>
+          <v-flex xs4 class="text-xs-center">
+            Silver Cargo Hold
+            <number-input v-model="data.score.tele.rightCargoHold" center controls/>
+          </v-flex>
+          <v-flex xs4 class="text-xs-center">
+            Minerals In Depot
+            <number-input v-model="data.score.tele.mineralsInDepot" center controls/>
+          </v-flex>
 
-        <v-flex xs6>
-          <v-checkbox v-model="Robot2Claimed" label="Robot 2 Claimed"></v-checkbox>
-        </v-flex>
 
-        <v-flex xs6>
-          <v-checkbox v-model="Robot1Parked" label="Robot 1 Parked"></v-checkbox>
-        </v-flex>
+          <v-flex class="grey text-xs-center" xs12>
+            END GAME
+          </v-flex>
+          <v-flex xs6 class="text-xs-center">
+            <div>Robot 1 Location</div>
+            <v-radio-group v-model="data.score.endgame.location[0]">
+              <v-radio label="No Bonus" :value="0"/>
+              <v-radio label="Partially in Crater" :value="15"/>
+              <v-radio label="In Crater" :value="25"/>
+              <v-radio label="Latched on Lander" :value="50"/>
+            </v-radio-group>
+          </v-flex>
+          <v-flex xs6 class="text-xs-center">
+            <div>Robot 2 Location</div>
+            <v-radio-group v-model="data.score.endgame.location[1]">
+              <v-radio label="No Bonus" :value="0"/>
+              <v-radio label="Partially in Crater" :value="15"/>
+              <v-radio label="In Crater" :value="25"/>
+              <v-radio label="Latched on Lander" :value="50"/>
+            </v-radio-group>
+          </v-flex>
 
-        <v-flex xs6>
-          <v-checkbox v-model="Robot2Parked" label="Robot 2 Parked"></v-checkbox>
-        </v-flex>
-
-        <!-- Can change counter to max digits of max num of scroing elements -->
-        <!-- <v-text-field
-          v-validate="'required|max:10'"
-          v-model="LeftCargoHold"
-          :counter="2"
-          :error-messages="errors.collect('name')"
-          label="Left Cargo Hold"
-        ></v-text-field> -->
-        <v-flex class="pa-3">
-          <v-layout row wrap>
-            <v-flex xs4 class="text-xs-center">
-              Left Cargo Hold
-            </v-flex>
-            <v-flex xs8>
-              <number-input v-model="AutonomousLeftCargoHold" center controls>
-              </number-input>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
-        <v-flex class="pa-3">
-          <v-layout row wrap>
-            <v-flex xs4 class="text-xs-center">
-              Right Cargo Hold
-            </v-flex>
-            <v-flex xs8>
-              <number-input v-model="AutonomousRightCargoHold" center controls>
-              </number-input>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
-        <v-flex class="pa-3">
-          <v-layout row wrap>
-            <v-flex xs4 class="text-xs-center">
-              Minerals in Depot
-            </v-flex>
-            <v-flex xs8>
-              <number-input v-model="AutonomousMineralsInDepot" center controls>
-              </number-input>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
-
-      <v-divider/>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <div> Driver-Controlled </div>
-        </v-flex>
-
-        <v-flex class="pa-3">
-          <v-layout row wrap>
-            <v-flex xs4 class="text-xs-center">
-              Left Cargo Hold
-            </v-flex>
-            <v-flex xs8>
-              <number-input v-model="DriverControledLeftCargoHold" center controls>
-              </number-input>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
-        <v-flex class="pa-3">
-          <v-layout row wrap>
-            <v-flex xs4 class="text-xs-center">
-              Right Cargo Hold
-            </v-flex>
-            <v-flex xs8>
-              <number-input v-model="DriverControledRightCargoHold" center controls>
-              </number-input>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
-        <v-flex class="pa-3">
-          <v-layout row wrap>
-            <v-flex xs4 class="text-xs-center">
-              Minerals in Depot
-            </v-flex>
-            <v-flex xs8>
-              <number-input v-model="DriverControledMineralsInDepot" center controls>
-              </number-input>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
-
+          <v-flex class="grey text-xs-center" xs12>
+            PENALTIES
+          </v-flex>
+          <v-flex xs5 class="text-xs-center">
+            Minor
+            <number-input v-model="data.score.penalties.minor" center controls/>
+          </v-flex>
+          <v-flex xs5 class="text-xs-center">
+            Major
+            <number-input v-model="data.score.penalties.major" center controls/>
+          </v-flex>
+          <v-flex xs4 class="text-xs-center">
+            Team {{data.teams[0].number}}:
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.teams[0].yellow" label="Yellow Card" color="yellow darken-2"/>
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.teams[0].red" label="Red Card" color="red"/>
+          </v-flex>
+          <v-flex xs4 class="text-xs-center">
+            Team {{data.teams[1].number}}:
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.teams[1].yellow" label="Yellow Card" color="yellow darken-2"/>
+          </v-flex>
+          <v-flex xs4>
+            <v-checkbox v-model="data.teams[1].red" label="Red Card" color="red"/>
+          </v-flex>
+        </v-layout>
+      </v-card-text>
     </v-card>
     
 </template>
 
 <script>
-import NumberInput from "@chenfengyuan/vue-number-input"
+import NumberInput from "@chenfengyuan/vue-number-input";
 
 export default {
+  props: ["color", "number", "penalties"],
+  components: { NumberInput },
   data: () => ({
-    Team1CheckNoShow: false,
-    Team1CheckPresent: true,
-    Team1CheckLatched: false,
-    Team2CheckNoShow: false,
-    Team2CheckPresent: true,
-    Team2CheckLatched: false,
-    Robot1Landed: false,
-    Robot1Claimed: false,
-    Robot2Landed: false,
-    Robot2Claimed: false,
-    AutonomousLeftCargoHold: 0,
-    AutonomousRightCargoHold: 0,
-    AutonomousMineralsInDepot: 0,
-    DriverControledLeftCargoHold: 0,
-    DriverControledRightCargoHold: 0,
-    DriverControledMineralsInDepot: 0
+    data: {
+      score: {
+        auto: {
+          latched: [false,false],
+          landed: [false,false],
+          claimed: [false,false],
+          parked: [false,false],
+          sample: [false,false]
+        },
+        tele: {
+          leftCargoHold: 0,
+          rightCargoHold: 0,
+          mineralsInDepot: 0
+        },
+        endgame: {
+          location: [0,0]
+        },
+        penalties: {
+          minor: 0,
+          major: 0
+        }, 
+        total: 0
+      },
+      teams: [
+        {
+          disqualified: false,
+          noshow: false,
+          number: 1111,
+          surrogate: false,
+          yellow: false
+        },{
+          disqualified: false,
+          noshow: false,
+          number: 2222,
+          surrogate: false,
+          yellow: false
+        }
+      ]
+    }
   }),
-  components:{NumberInput},
-  props: ["color"]
+  computed: {
+    autoScore() {
+      return 30*this.data.score.auto.landed[0] + 30*this.data.score.auto.landed[1]
+              + 15*this.data.score.auto.claimed[0] + 15*this.data.score.auto.claimed[1] 
+              + 10*this.data.score.auto.parked[0] + 10*this.data.score.auto.parked[1]
+              + 25*this.data.score.auto.sample[0] + 25*this.data.score.auto.sample[1];
+    },
+    teleScore() {
+      return 2*this.data.score.tele.mineralsInDepot + 5*this.data.score.tele.leftCargoHold + 5*this.data.score.tele.rightCargoHold;
+    },
+    endScore() {
+      return this.data.score.endgame.location[0] + this.data.score.endgame.location[1] ;
+    },
+    penaltiesScore() {
+      return 10*this.data.score.penalties.minor + 40*this.data.score.penalties.major;
+    },
+    totalScore() {
+      return this.autoScore + this.teleScore + this.endScore + this.penalties;
+    }
+  },
+  watch: {
+    penaltiesScore: {
+      immediate: true,
+      handler(newVal) {
+        console.log('handler', newVal)
+        this.$emit('change:penalties', newVal)
+      }
+    }
+  }
 };
 </script>
 
-<style>
+<style  lang="scss">
+.v-card__text {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.v-input--radio-group {
+  margin-top: 0;
+}
+.v-input--checkbox {
+  margin-top: 0;
+  padding-top: 6px;
+  .v-messages {
+    display: none !important;
+  }
+  .v-input__slot {
+    margin-bottom: 6px;
+  }
+}
+
+.number-input {
+  margin-bottom: 12px;
+}
 </style>
