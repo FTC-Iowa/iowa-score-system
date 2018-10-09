@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import axios from "axios";
 // import shortid from 'shortid';
 
+const url = 'http://localhost:3000'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -52,7 +54,7 @@ export default new Vuex.Store({
       dispatch("SAVE_EVENT");
     },
     SAVE_EVENT({ commit, state }) {
-      axios.post('http://192.168.1.117:3000/api/event?id=' + state.eventid, state.event)
+      axios.post(url + '/api/event?id=' + state.eventid, state.event)
       .then(() => {
         commit('DIRTY', false)
       })
@@ -64,14 +66,14 @@ export default new Vuex.Store({
       if(!id) {
         id = state.eventid
       }
-      axios.get('http://192.168.1.117:3000/api/event?id=' + id)
+      axios.get(url + '/api/event?id=' + id)
       .then(response => {
         commit('OPEN_EVENT', response.data)
         commit('DIRTY', false)
       })
     },
     GET_EVENT_LIST({ commit }) {
-      axios.get('http://192.168.1.117:3000/api/event/list')
+      axios.get(url + '/api/event/list')
       .then(response => {
         commit("EVENT_LIST", response.data)
       })
@@ -79,7 +81,7 @@ export default new Vuex.Store({
     GENERATE_MATCH_LIST( {commit, state }, matchesPerTeam) {
       // count the number of teams at this event...
       var numTeams = state.event.teams.reduce((count, x)=>x.here?count++:count);
-      axios.get('http://192.168.1.117:3000/api/matchlist/generate?' + "matchesPerTeam=" + matchesPerTeam + "&" + "numberTeams=" + numTeams) 
+      axios.get(url + '/api/matchlist/generate?' + "matchesPerTeam=" + matchesPerTeam + "&" + "numberTeams=" + numTeams) 
       .then(response => {
         console.log(response)
       });
