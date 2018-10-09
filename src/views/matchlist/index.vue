@@ -88,7 +88,7 @@ export default {
   methods: {
     generate() {
       this.loading = true;
-
+      this.$store.dispatch("GENERATE_MATCH_LIST", this.matchesPerTeam);
       this.isGenerated = true;
     }
   }

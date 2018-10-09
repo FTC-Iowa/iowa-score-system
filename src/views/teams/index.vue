@@ -3,13 +3,19 @@
     <v-card-text>
       <v-data-table
         :headers="headers"
-        :items="items"
+        :items="teams"
         hide-actions
         class="elevation-1"
         item-key="id"
         loading="true"
       >
-        
+        <template slot="items" slot-scope="props">
+          <td><v-checkbox label="" :value="props.item.here" @change="updateHere($event, props.index)"/></td>
+          <td>{{props.item.number}}</td>
+          <td>{{props.item.name}}</td>
+          <td>{{props.item.organization}}</td>
+          <td>{{JSON.stringify(props.index)}}</td>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
@@ -40,8 +46,17 @@ export default {
         text: "edit"
       }
     ],
-    items: []
-  })
+  }),
+  computed: {
+    teams() {
+      return this.$store.state.event.teams;
+    }
+  },
+  methods: {
+    updateHere(val, index) {
+      this.$store.commit('UPDATE_HERE',{index: index, val: val})
+    }
+  }
 };
 </script>
 

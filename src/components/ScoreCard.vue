@@ -150,19 +150,23 @@ export default {
           landed: [false,false],
           claimed: [false,false],
           parked: [false,false],
-          sample: [false,false]
+          sample: [false,false],
+          total: 0
         },
         tele: {
           leftCargoHold: 0,
           rightCargoHold: 0,
-          mineralsInDepot: 0
+          mineralsInDepot: 0,
+          total: 0
         },
         endgame: {
-          location: [0,0]
+          location: [0,0],
+          total: 0
         },
         penalties: {
           minor: 0,
-          major: 0
+          major: 0,
+          total: 0
         }, 
         total: 0
       },
@@ -210,6 +214,23 @@ export default {
         console.log('handler', newVal)
         this.$emit('change:penalties', newVal)
       }
+    },
+    number: {
+      immediate: true,
+      handler(newVal) {
+        console.log('match number chagned');
+        this.saveMatch();
+        //todo switch to the new match
+      }
+    }
+  },
+  methods: {
+    saveMatch() {
+      this.data.score.auto.total = this.autoScore;
+      this.data.score.tele.total = this.teleScore;
+      this.data.score.endgame.total = this.endScore;
+      this.data.score.penalties.total = this.penalties;
+      // this.$state.commit("SAVE_MATCH_DATA", this.data);
     }
   }
 };
