@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.0fed7523fe3c774686d35a79a51e8f51.js"
+  "/precache-manifest.0c6ff224de47495f26c56d70a11f7901.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "iowa-score-system"});

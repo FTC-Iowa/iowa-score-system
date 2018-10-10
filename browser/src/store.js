@@ -75,7 +75,7 @@ export default new Vuex.Store({
     GET_EVENT_LIST({ commit }) {
       axios.get(url + '/api/event/list')
       .then(response => {
-        commit("EVENT_LIST", response.data)
+        commit("EVENT_LIST", response.data);
       })
     },
     GENERATE_MATCH_LIST( {commit, state }, matchesPerTeam) {
