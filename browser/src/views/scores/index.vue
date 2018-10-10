@@ -45,7 +45,7 @@ export default {
       match.red = red;
       match.blue = blue;
       match.index = this.selectedMatch;
-      this.$store.commit("SAVE_SCORE", match)
+      this.$store.dispatch("SAVE_SCORE", match)
     }
   }
 };

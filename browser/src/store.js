@@ -49,6 +49,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    SAVE_SCORE({commit, dispatch}, match) {
+      commit("SAVE_SCORE", match);
+      dispatch("SAVE_EVENT");
+    },
     CREATE_EVENT({commit, dispatch}, event) {
       var id = event.name.replace(/ /g, "_");//shortid.generate();
       event.id = id;
