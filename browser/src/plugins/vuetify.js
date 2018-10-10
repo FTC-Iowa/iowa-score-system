@@ -19,7 +19,8 @@ import {
   VDatePicker,
   VProgressCircular,
   VCheckbox,
-  VRadioGroup
+  VRadioGroup,
+  VDataIterator
 } from "vuetify";
 import "vuetify/src/stylus/app.styl";
 import colors from "vuetify/es5/util/colors";
@@ -44,7 +45,8 @@ Vue.use(Vuetify, {
     VDatePicker,
     VProgressCircular,
     VCheckbox,
-    VRadioGroup
+    VRadioGroup,
+    VDataIterator
   },
   theme: {
     primary: "#f57e25",
