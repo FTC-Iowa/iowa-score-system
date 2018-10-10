@@ -13,7 +13,7 @@ import "runtime"
 import "github.com/dimfeld/httptreemux"
 
 // make a config struc or pull your vars from a file or however you want, these are here as an example
-var wwwRoot = "./browser/dist/"
+var wwwRoot = "./public/"
 var domain = "localhost"
 var httpPort = "3000"
 
