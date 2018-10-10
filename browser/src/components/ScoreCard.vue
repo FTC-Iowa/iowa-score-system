@@ -139,6 +139,7 @@
 <script>
 import NumberInput from "@chenfengyuan/vue-number-input";
 import Vue from "vue"
+import dcopy from "deep-copy"
 
 export default {
   props: ["color", "number", "penalties"],
@@ -223,7 +224,7 @@ export default {
         // if(oldVal){
         //   this.saveMatch(false, oldVal);
         // }
-        var match = this.$store.state.event.matches[newVal]
+        var match = dcopy(this.$store.state.event.matches[newVal])
         if(match) {
           console.log("set match: ", match)
           Vue.set(this.data, "score", match[this.color].score)
@@ -241,7 +242,7 @@ export default {
       this.data.score.endgame.total = this.endScore;
       this.data.score.penalties.total = this.penalties;
       this.data.score.total = this.totalScore;
-      return this.data;
+      return dcopy(this.data);
     }
   }
 };

@@ -12,6 +12,7 @@
     "@chenfengyuan/vue-number-input": "^0.5.2",
     "axios": "^0.18.0",
     "cors": "^2.8.1",
+    "deep-copy": "^1.4.2",
     "material-design-icons-iconfont": "^3.0.3",
     "npm": "^6.4.1",
     "register-service-worker": "^1.0.0",
