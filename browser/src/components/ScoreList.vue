@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-data-iterator
-      :items="matchinformation"
+      :items="matches"
       hide-actions
       row
       wrap
@@ -14,29 +14,21 @@
         <v-toolbar-title>Matches</v-toolbar-title>
       </v-toolbar> -->
 
-        <v-flex 
+        <template
           slot="item"
           slot-scope="props"
+          xs12
           >
-          <c-card>
-            <v-card-title>Matches2</v-card-title>
-            <v-divider/>
+          <v-card dense @click.native="changeMatch(props.index)">
+            <v-card-title>
+              Match {{props.item.number}}
+            </v-card-title>
+            
 
-            <v-list dense>
-              <v-list-tile>
-                <v-list-tile-content>Match num:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.matchscore }}</v-list-tile-content>
-              </v-list-tile>
+            
 
-              <v-list-tile>
-                <v-list-tile-content>match num 2:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.matchscoretwo }}</v-list-tile-content>
-              </v-list-tile>
-
-            </v-list>
-
-          </c-card>
-        </v-flex>
+          </v-card>
+        </template>
 
       <!-- <template slot="items" slot-scope="props" ma-0 pa-0>
         <td>{{ props.item.matchnumber }}</td>
@@ -53,19 +45,29 @@
 
 <script>
 export default {
+  props: ["value"],
   data: () => ({
-      rowsPerPageItems: [4, 8, 12],
-      pagination: {
-        rowsPerPage: 4
-      },
-      items: [
-        {
-          matchscore: 130,
-          matchscoretwo: 123
-        }
-      ]
+    rowsPerPageItems: [4, 8, 12],
+    pagination: {
+      rowsPerPage: 4
+    },
+    items: [
+      {
+        matchscore: 130,
+        matchscoretwo: 123
+      }
+    ]
+  }),
+  computed: {
+    matches() {
+      return this.$store.state.event.matches;
+    }
+  },
+  methods: {
+    changeMatch(match) {
+      this.$emit("input", match)
+    }
   }
-  )
 
 }
 
