@@ -123,6 +123,21 @@ func apiPostEventHandler(w http.ResponseWriter, r *http.Request, params map[stri
   fmt.Fprintf(w, "Saved")
 }
 
+func apiGetMatchlist(w http.ResponseWriter, r *http.Request, params map[string]string) {
+  enableCors(&w)
+  log.Printf("Generate Matchlist")
+
+  matchesPerTeam := r.URL.Query()["matchesPerTeam"]
+  numberTeams := r.URL.Query()["numberTeams"][0]
+
+  cmd := ""
+  if runtime.GOOS == "linux" {
+    cmd += "wine "
+  }
+
+  cmd += "./MatchMaker.exe -a 2 -t " + numberTeams + " -r " + matchesPerTeam + " -o -s"
+}
+
 func main() {
   log.Printf("Starting Iowa Score System Server")
   log.Printf("Listening for HTTP connections at: http://%v:%v", domain, httpPort)
