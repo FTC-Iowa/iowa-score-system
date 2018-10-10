@@ -4,9 +4,11 @@ import "net/http"
 import "encoding/json"
 import "log"
 import "os"
+import "os/exec"
 import "fmt"
 import "strings"
 import "io/ioutil"
+import "runtime"
 
 import "github.com/dimfeld/httptreemux"
 
@@ -127,15 +129,25 @@ func apiGetMatchlist(w http.ResponseWriter, r *http.Request, params map[string]s
   enableCors(&w)
   log.Printf("Generate Matchlist")
 
-  matchesPerTeam := r.URL.Query()["matchesPerTeam"]
+  matchesPerTeam := r.URL.Query()["matchesPerTeam"][0]
   numberTeams := r.URL.Query()["numberTeams"][0]
 
-  cmd := ""
+  var cmd *exec.Cmd
   if runtime.GOOS == "linux" {
-    cmd += "wine "
+    cmd = exec.Command("wine", "./MatchMaker.exe", "-a", "2", "-t", numberTeams, "-r", matchesPerTeam, "-o", "-s")
+  } else {
+    cmd = exec.Command("./MatchMaker.exe", "-a", "2", "-t", numberTeams, "-r", matchesPerTeam, "-o", "-s")
   }
+  stdOut, _ := cmd.StdoutPipe()
+  cmd.Start()
+  bytes, _ := ioutil.ReadAll(stdOut)
+  cmd.Wait()
 
-  cmd += "./MatchMaker.exe -a 2 -t " + numberTeams + " -r " + matchesPerTeam + " -o -s"
+  cmd.Wait()
+  log.Printf("result: %s", string(bytes))
+
+  fmt.Fprintf(w, string(bytes))
+
 }
 
 func main() {
@@ -150,6 +162,7 @@ func main() {
   router.GET("/api/event/list", apiGetEventListHandler)
   router.GET("/api/event", apiGetEventHandler)
   router.POST("/api/event", apiPostEventHandler)
+  router.GET("/api/matchlist", apiGetMatchlist)
 
   router.GET("/api/endpointname", healthCheckHandler)
   router.GET("/api/endpointname/:id", healthCheckHandler)

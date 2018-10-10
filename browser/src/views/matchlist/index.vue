@@ -30,10 +30,10 @@
       >
         <template slot="items" slot-scope="props">
           <td>{{props.item.number}}</td>
-          <td>{{props.item.red1}}</td>
-          <td>{{props.item.red2}}</td>
-          <td>{{props.item.blue1}}</td>
-          <td>{{props.item.blue2}}</td>
+          <td>{{props.item.red.teams[0].number}}{{props.item.red.teams[0].surrogate?"*":""}}</td>
+          <td>{{props.item.red.teams[1].number}}{{props.item.red.teams[1].surrogate?"*":""}}</td>
+          <td>{{props.item.blue.teams[0].number}}{{props.item.blue.teams[0].surrogate?"*":""}}</td>
+          <td>{{props.item.blue.teams[1].number}}{{props.item.blue.teams[1].surrogate?"*":""}}</td>
         </template>
       </v-data-table>
     </v-card-text>
@@ -43,25 +43,8 @@
 <script>
 export default {
   data: () => ({
-    isGenerated: false,
     matchesPerTeam: 5,
     loading: false,
-    matches: [
-      {
-        number: 1,
-        red1: 1111,
-        red2: 2222,
-        blue1: 3333,
-        blue2: 4444
-      },
-      {
-        number: 2,
-        red1: 5555,
-        red2: 6666,
-        blue1: 7777,
-        blue2: 8888
-      }
-    ],
     headers: [
       {
         text: "Number",
@@ -85,11 +68,27 @@ export default {
       }
     ]
   }),
+  computed: {
+    isGenerated() {
+      return this.$store.state.event.matches.length > 0;
+    },
+    matches() {
+      return this.$store.state.event.matches;
+    }
+  },
   methods: {
     generate() {
       this.loading = true;
       this.$store.dispatch("GENERATE_MATCH_LIST", this.matchesPerTeam);
-      this.isGenerated = true;
+    }
+  },
+  watch: {
+    isGenerated: {
+      immediate: true,
+      handler(newVal) {
+        if(newVal)
+          this.loading = false;
+      }
     }
   }
 };

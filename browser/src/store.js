@@ -41,6 +41,9 @@ export default new Vuex.Store({
     },
     UPDATE_HERE (state, {index, val}) {
       state.event.teams[index].here = val;
+    },
+    ADD_MATCH(state, match) {
+      state.event.matches.push(match);
     }
   },
   actions: {
@@ -78,12 +81,116 @@ export default new Vuex.Store({
         commit("EVENT_LIST", response.data);
       })
     },
-    GENERATE_MATCH_LIST( {commit, state }, matchesPerTeam) {
+    GENERATE_MATCH_LIST( {commit, state, dispatch }, matchesPerTeam) {
       // count the number of teams at this event...
-      var numTeams = state.event.teams.reduce((count, x)=>x.here?count++:count);
-      axios.get(url + '/api/matchlist/generate?' + "matchesPerTeam=" + matchesPerTeam + "&" + "numberTeams=" + numTeams) 
+      var hereList = state.event.teams.filter(x=>x.here)
+      var numTeams = hereList.length;
+      if(numTeams === 0) return;
+      axios.get(url + '/api/matchlist?' + "matchesPerTeam=" + matchesPerTeam + "&" + "numberTeams=" + numTeams) 
       .then(response => {
-        console.log(response)
+        console.log(response.data)
+        var rows = response.data.split("\n")
+        rows.forEach(row => {
+          var cols = row.split(" ");
+          if(cols.length === 9) {
+            var match = {
+              number: parseInt(cols[0]),
+              type: "Qualification",
+              saved: "false",
+              eventId: state.eventid,
+              division: 1,
+              red: {
+                score: {
+                  auto: {
+                    latched: [false,false],
+                    landed: [false,false],
+                    claimed: [false,false],
+                    parked: [false,false],
+                    sample: [false,false],
+                    total: 0
+                  },
+                  tele: {
+                    leftCargoHold: 0,
+                    rightCargoHold: 0,
+                    mineralsInDepot: 0,
+                    total: 0
+                  },
+                  endgame: {
+                    location: [0,0],
+                    total: 0
+                  },
+                  penalties: {
+                    minor: 0,
+                    major: 0,
+                    total: 0
+                  }, 
+                  total: 0
+                },
+                teams: [
+                  {
+                    disqualified: false,
+                    noshow: false,
+                    number: hereList[parseInt(cols[1])-1].number,
+                    surrogate: cols[2] === "1",
+                    yellow: false
+                  },{
+                    disqualified: false,
+                    noshow: false,
+                    number: hereList[parseInt(cols[3])-1].number,
+                    surrogate: cols[4] === "1",
+                    yellow: false
+                  }
+                ]
+              },
+              blue: {
+                score: {
+                  auto: {
+                    latched: [false,false],
+                    landed: [false,false],
+                    claimed: [false,false],
+                    parked: [false,false],
+                    sample: [false,false],
+                    total: 0
+                  },
+                  tele: {
+                    leftCargoHold: 0,
+                    rightCargoHold: 0,
+                    mineralsInDepot: 0,
+                    total: 0
+                  },
+                  endgame: {
+                    location: [0,0],
+                    total: 0
+                  },
+                  penalties: {
+                    minor: 0,
+                    major: 0,
+                    total: 0
+                  }, 
+                  total: 0
+                },
+                teams: [
+                  {
+                    disqualified: false,
+                    noshow: false,
+                    number: hereList[parseInt(cols[5])-1].number,
+                    surrogate: cols[6] === "1",
+                    yellow: false
+                  },{
+                    disqualified: false,
+                    noshow: false,
+                    number: hereList[parseInt(cols[7])-1].number,
+                    surrogate: cols[8] === "1",
+                    yellow: false
+                  }
+                ]
+              }
+            }
+            // console.log(match)
+            commit("ADD_MATCH", match);
+          }
+        })
+        dispatch("SAVE_EVENT");
       });
     }
   }
