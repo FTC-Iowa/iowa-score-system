@@ -32,10 +32,6 @@ export default new Vuex.Store({
     DIRTY (state, val) {
       state.saved = val;
     },
-    SAVE_MATCH_DATA(state, {matchNumber, color, data}) {
-      Vue.set(state.event.matches[matchNumber],color,data)
-      state.event.matches[matchNumber].saved = true;
-    },
     EVENT_LIST (state, val) {
       Vue.set(state, "eventList", val)
     },
@@ -44,6 +40,12 @@ export default new Vuex.Store({
     },
     ADD_MATCH(state, match) {
       state.event.matches.push(match);
+    },
+    SAVE_SCORE(state, {red, blue, index}) {
+      console.log("save match", index)
+      Vue.set(state.event.matches[index], "red", red);
+      Vue.set(state.event.matches[index], "blue", blue);
+      Vue.set(state.event.matches[index], "saved", true);
     }
   },
   actions: {

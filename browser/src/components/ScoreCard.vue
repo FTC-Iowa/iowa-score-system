@@ -138,6 +138,7 @@
 
 <script>
 import NumberInput from "@chenfengyuan/vue-number-input";
+import Vue from "vue"
 
 export default {
   props: ["color", "number", "penalties"],
@@ -217,20 +218,30 @@ export default {
     },
     number: {
       immediate: true,
-      handler(newVal) {
-        console.log('match number chagned');
-        this.saveMatch();
+      handler(newVal, oldVal) {
+        console.log('match number changed', newVal);
+        // if(oldVal){
+        //   this.saveMatch(false, oldVal);
+        // }
+        var match = this.$store.state.event.matches[newVal]
+        if(match) {
+          console.log("set match: ", match)
+          Vue.set(this.data, "score", match[this.color].score)
+          Vue.set(this.data, "teams", match[this.color].teams)
+        }
         //todo switch to the new match
       }
     }
   },
   methods: {
-    saveMatch() {
+    getMatch(number) {
+      // if(this.$store.state.event.matches[number].saved !== true) {
       this.data.score.auto.total = this.autoScore;
       this.data.score.tele.total = this.teleScore;
       this.data.score.endgame.total = this.endScore;
       this.data.score.penalties.total = this.penalties;
-      // this.$state.commit("SAVE_MATCH_DATA", this.data);
+      this.data.score.total = this.totalScore;
+      return this.data;
     }
   }
 };
